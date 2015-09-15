@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tasks>
+
+	<task id="collectJob" class="com.ec.autojob.collectJob.FileCollectMsgJob"></task>
+
+	<task id="staticSumJob" class="com.ec.autojob.staticJob.StaticMsgSumJob"></task>
+	
+	<task id="staticUserJob" class="com.ec.autojob.staticJob.StaticMsgUserJob"></task>
+	
+	<task id="staticCustomJob" class="com.ec.autojob.staticJob.StaticMsgCosumerJob"></task>
+	
+	<task id="staticMsgWxJob" class="com.ec.autojob.staticJob.StaticMsgWxJob"></task>
+</tasks>

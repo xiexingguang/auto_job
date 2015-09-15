@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="off" monitorInterval="1800">
+    <Properties>
+<!--         <Property name="filePathPrefix">/home/logs/formInterface-log</Property> -->
+        <Property name="filePathPrefix">/data/log/autojob</Property>
+    </Properties>
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="[autoJob] %d - %c -%-4r [%t] %-5p  %x - %m%n" />
+        </Console>
+        <!-- Async Loggers will auto-flush in batches, so switch off immediateFlush. -->
+        <!-- bufferSize int The buffer size, defaults to 262,144 bytes (256 * 1024). -->
+        <RollingRandomAccessFile name="collectJobLog" 
+            fileName="${filePathPrefix}/collectJobLog.log" immediateFlush="false"
+            append="true"
+            filePattern="${filePathPrefix}/$${date:yyyy-MM}/collectJobLog-log/collectJobLog-log-%d{yyyy-MM-dd}-%i.log">
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="50" />
+            <PatternLayout>
+                <Pattern>[autoJob] %d - %c -%-4r [%t] %-5p %x - %m%n</Pattern>
+            </PatternLayout>
+        </RollingRandomAccessFile>
+        
+        <RollingRandomAccessFile name="staticEveryJobLog"
+            fileName="${filePathPrefix}/staticEveryJob.log"
+            immediateFlush="true" append="true"
+            filePattern="${filePathPrefix}/$${date:yyyy-MM}/staticEveryJob-log/staticEveryJob-log-%d{yyyy-MM-dd}-%i.log">
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="50" />
+            <PatternLayout>
+                <Pattern>[autoJob] %d - %c -%-4r [%l] %-5p %x - %m%n</Pattern>
+            </PatternLayout>
+        </RollingRandomAccessFile>
+        
+        <RollingRandomAccessFile name="staticUserJobLog"
+            fileName="${filePathPrefix}/staticUserJob.log"
+            immediateFlush="true" append="true"
+            filePattern="${filePathPrefix}/$${date:yyyy-MM}/staticUserJob/staticUserJob-log-%d{yyyy-MM-dd}-%i.log">
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="50" />
+            <PatternLayout>
+                <Pattern>[autoJob] %d - %c -%-4r [%l] %-5p %x - %m%n</Pattern>
+            </PatternLayout>
+        </RollingRandomAccessFile>
+        
+        <RollingRandomAccessFile name="staticCustomJobLog"
+            fileName="${filePathPrefix}/staticCustomJob.log"
+            immediateFlush="true" append="true"
+            filePattern="${filePathPrefix}/$${date:yyyy-MM}/staticCustomJob/staticCustomJob-log-%d{yyyy-MM-dd}-%i.log">
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="50" />
+            <PatternLayout>
+                <Pattern>[autoJob] %d - %c -%-4r [%l] %-5p %x - %m%n</Pattern>
+            </PatternLayout>
+        </RollingRandomAccessFile>
+        
+        <RollingRandomAccessFile name="appLog"
+            fileName="${filePathPrefix}/appLog.log"
+            immediateFlush="true" append="true"
+            filePattern="${filePathPrefix}/$${date:yyyy-MM}/appLog/appLog-log-%d{yyyy-MM-dd}-%i.log">
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="50" />
+            <PatternLayout>
+                <Pattern>[autoJob] %d - %c -%-4r [%l] %-5p %x - %m%n</Pattern>
+            </PatternLayout>
+        </RollingRandomAccessFile>
+        
+        
+        
+         <RollingRandomAccessFile name="errorLog"
+            fileName="${filePathPrefix}/errorLog.log"
+            immediateFlush="true" append="true"
+            filePattern="${filePathPrefix}/$${date:yyyy-MM}/errorLog/errorLog-log-%d{yyyy-MM-dd}-%i.log">
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="50" />
+            <PatternLayout>
+                <Pattern>[autoJob] %d - %c -%-4r [%l] %-5p %x - %m%n</Pattern>
+            </PatternLayout>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <logger name="org.springframework" level="WARN" ></logger>
+        <logger name="com.atomikos.icatch" level="WARN" ></logger>
+        <logger name="org.eclipse.jetty" level="WARN" ></logger>
+        <logger name="java.sql.Connection" level="DEBUG" ></logger>
+        <logger name="java.sql.Statement" level="DEBUG" ></logger>
+        <logger name="java.sql.ResultSet" level="DEBUG" ></logger>
+        <logger name="java.sql.PreparedStatement" level="DEBUG" ></logger>
+        <logger name="org.mybatis.spring" level="DEBUG" ></logger>
+        <logger name="com.trendrr.nsq" level="DEBUG" ></logger>
+        <!--  
+        <Root level="INFO">
+            <AppenderRef ref="FormInterfaceLog" />
+            <AppenderRef ref="CONSOLE" />
+        </Root>
+      
+        <Logger name="errorLog" level="ERROR"
+            includeLocation="true">
+            <AppenderRef ref="FormInterfaceErrorLog" />
+        </Logger>
+       -->
+        <!--入口app 日志  -->
+        <AsyncLogger name="appLog" level="debug"
+            includeLocation="true" additivity="true">
+            <AppenderRef ref="appLog" />
+        </AsyncLogger>
+        
+         <!--收集数据 日志  -->
+        <AsyncLogger name="collectJobLog" level="debug"
+            includeLocation="true" additivity="false">
+            <AppenderRef ref="collectJobLog" />
+        </AsyncLogger>
+        <!--收集数据用户消息量统计日志  -->
+        <AsyncLogger name="staticSumJobLog" level="INFO"
+            includeLocation="true" additivity="true">
+            <AppenderRef ref="staticEveryJobLog" />
+        </AsyncLogger>
+        <!--EIM活跃用户统计日志  -->
+         <AsyncLogger name="staticUserJobLog" level="INFO"
+            includeLocation="true" additivity="true">
+            <AppenderRef ref="staticUserJobLog" />
+        </AsyncLogger>
+        
+        <!--客服消息统计日志  -->
+         <AsyncLogger name="staticCustomerJobLog" level="INFO"
+            includeLocation="true" additivity="true">
+            <AppenderRef ref="staticCustomJobLog" />
+        </AsyncLogger>
+    </Loggers>
+</Configuration>
