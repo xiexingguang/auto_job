@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 cd /tmp/
 APP_NAME="autoJob"
 APP_NAME_LON=${APP_NAME,,}

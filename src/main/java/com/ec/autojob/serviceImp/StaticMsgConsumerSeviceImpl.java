@@ -37,7 +37,12 @@ public class StaticMsgConsumerSeviceImpl  implements  StaticMsgService{
 	@Autowired
 	private StaticMsgDaoImpl staticMsgDao;
 	
-	
+
+
+
+
+
+
 	@Override
 	public <T> T handlerStaticData(String colletcionName, T t) {
 		

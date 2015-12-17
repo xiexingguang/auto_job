@@ -209,7 +209,13 @@
 			<artifactId>jetty-server</artifactId>
 			<version>9.3.0.M2</version>
 		</dependency>
-		
+
+         <!-- 添加监控-->
+      <dependency>
+          <groupId>com.ec</groupId>
+          <artifactId>ec-watcher</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+      </dependency>
 		
   </dependencies>
   
