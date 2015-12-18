@@ -1,12 +1,9 @@
 package com.ec.autojob.app;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
-
+import com.ec.autojob.bean.AutoTaskBean;
+import com.ec.autojob.common.TaskConstants;
+import com.ec.autojob.dao.AutoTaskDao;
+import com.ec.autojob.jetty.ServerJetty;
+import com.ec.autojob.util.PropertiesUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.dom4j.Element;
@@ -17,17 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import javax.annotation.PostConstruct;
+import java.util.*;
 
-import com.ec.autojob.bean.AutoTaskBean;
-import com.ec.autojob.common.TaskConstants;
-import com.ec.autojob.dao.AutoTaskDao;
-import com.ec.autojob.jetty.ServerJetty;
-import com.ec.autojob.util.PropertiesUtil;
-/**
- * 
- * @author jasshine_xxg
- *
- */
+
 @Component
 public class AutoJobEntry implements Job{
 	
@@ -52,11 +42,16 @@ public class AutoJobEntry implements Job{
 	@Autowired
 	@Qualifier("fileCollectMsgJob")
 	private Job collectJob;
-	
+
 	
 	@Autowired
 	@Qualifier("staticMsgWxJob")
 	private Job staticWXJob;
+
+    @Autowired
+    @Qualifier("packageDataJob")
+    private Job apiPackageJob;
+
 	private  static Map<String,Job> JOB_MAP = new HashMap<String, Job>();
 	
 	@Autowired
@@ -74,16 +69,18 @@ public class AutoJobEntry implements Job{
 		 LOG.info("Jetty is listen on 9999");
 		 server.startJetty();
 		 
-		JOB_MAP.put("collectJob",collectJob);
+		JOB_MAP.put("collectJob", collectJob);
 		JOB_MAP.put("staticSumJob",staticSumJob);
 		JOB_MAP.put("staticUserJob", userJob);
 		JOB_MAP.put("staticCustomJob", staticCusJob);
 		JOB_MAP.put("staticMsgWxJob", staticWXJob);
+        JOB_MAP.put("staticMsgWxJob", staticWXJob);
+        JOB_MAP.put("apiPackageJob", apiPackageJob);
 	}                    
 	
 	//private 
 	
-	/**
+/**
 	 * 
 	 * process:自动任务job 入口<br/>
 	 * TODO(这里描述这个方法适用条件 – 可选).<br/>
@@ -92,6 +89,7 @@ public class AutoJobEntry implements Job{
 	 * @throws Exception 
 	 * @since JDK 1.7
 	 */
+
 	@SuppressWarnings("deprecation")
 	@Scheduled(cron = "0/5 * * * * *") 
 	public void process() throws Exception{

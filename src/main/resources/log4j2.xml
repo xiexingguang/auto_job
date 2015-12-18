@@ -125,6 +125,7 @@
         <logger name="java.sql.PreparedStatement" level="DEBUG" ></logger>
         <logger name="org.mybatis.spring" level="DEBUG" ></logger>
         <logger name="com.trendrr.nsq" level="DEBUG" ></logger>
+        <logger name="com.ec.autojob.nsq" level="DEBUG" ></logger>
         <!--  
         <Root level="INFO">
             <AppenderRef ref="FormInterfaceLog" />

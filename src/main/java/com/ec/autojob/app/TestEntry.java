@@ -1,18 +1,10 @@
-/**
- * Project Name:autoJob
- * File Name:TestEntry.java
- * Package Name:com.ec.autojob.app
- * Date:2015年6月30日下午7:20:55
- * Copyright (c) 2015, 深圳市六度人和 All Rights Reserved.
- *
- *
-
-*//*
+/*
 
 
 
 
 package com.ec.autojob.app;
+import com.ec.autojob.pushPackageDataJob.PackageDataJob;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -27,17 +19,7 @@ import com.ec.autojob.staticJob.StaticMsgSumJob;
 import com.ec.autojob.staticJob.StaticMsgUserJob;
 import com.ec.autojob.staticJob.StaticMsgWxJob;
 
-*//**
- * ClassName:TestEntry <br/>
- * Function: TODO ADD FUNCTION. <br/>
-<<<<<<< .mine
- * Reason:	 TODO ADD REASON. <br/>
- * Date:     2015年6月30日 下午7:20:55 <br/>
- * @author   xxg
- * @version  
- * @since    JDK 1.7
- * @see 	 
- *//*
+
 
 @Component
 public class TestEntry implements Job{
@@ -62,7 +44,10 @@ public class TestEntry implements Job{
 	@SuppressWarnings("rawtypes")
 	@Autowired
 	private StaticMsgUserJob userJob;
-	private boolean flag = false;
+
+    @Autowired
+    private PackageDataJob packageDataJob;
+    private boolean flag = false;
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		
@@ -78,12 +63,12 @@ public class TestEntry implements Job{
 	    	//staticCusJob.execute(null);
 	    	//userJob.execute(null);
 
-	     wxJob.execute(null);
+	    // wxJob.execute(null);
 	    	// job.execute(null);
 
-            wxJob.execute(null);
+        //    wxJob.execute(null);
             // job.execute(null);
-
+            packageDataJob.execute(null);
 	    	flag = true;
 	    }	
 		

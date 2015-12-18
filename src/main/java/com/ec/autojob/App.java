@@ -24,8 +24,10 @@ public class App
     	 ctx.getEnvironment().setActiveProfiles("production");
         // ctx.getEnvironment().setActiveProfiles("develop");
          ctx.load("classpath*:/spring/applicationContext.xml");
+
          ctx.refresh();
          context = ctx;
+       // System.out.println(ctx.getBean(ECNsqProducer.class));
     
     }
 

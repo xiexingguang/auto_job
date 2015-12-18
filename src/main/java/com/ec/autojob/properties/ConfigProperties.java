@@ -33,5 +33,11 @@ public class ConfigProperties {
 	
 	 @Value("${cacheCapicity}")
 	 public String  CACHE_CAPICITY; //批量插入容量设置
+
+    @Value("${packageIds}")
+    public String PACKAGE_IDS;
+
+    @Value("${nsq.topic}")
+    public String topic;
 }
 

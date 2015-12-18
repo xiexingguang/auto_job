@@ -7,19 +7,22 @@
  *
 */
 package com.ec.autojob.util;
+
+import com.ec.autojob.common.MsgConstants;
+import com.ec.autojob.common.exception.AayLengthNotEqObFileNumsException;
+import com.ec.autojob.common.exception.CallReflectSetException;
+import com.ec.autojob.common.exception.WriteStringToLogException;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.ec.autojob.common.MsgConstants;
-import com.ec.autojob.common.exception.AayLengthNotEqObFileNumsException;
-import com.ec.autojob.common.exception.CallReflectSetException;
-import com.ec.autojob.common.exception.WriteStringToLogException;
 
 /**
  * ClassName:StringUtil <br/>
@@ -262,8 +265,18 @@ public class StringUtil {
 	public static String pareColelctionName(String str){
 	     return str.substring(4);
 	}
-	
-	/**
+
+
+    public static List<Long> convertStringList2LongList(List<String> strs) {
+        List<Long> longs = new ArrayList<>();
+        for (String s : strs) {
+            Long l = Long.parseLong(s);
+            longs.add(l);
+        }
+        return longs;
+    }
+
+    /**
 	 * 
 	 * convertFolat2String:(这里用一句话描述这个方法的作用). <br/>
 	 * TODO(这里描述这个方法适用条件 – 可选).<br/>
