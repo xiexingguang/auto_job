@@ -39,5 +39,11 @@ public class ConfigProperties {
 
     @Value("${nsq.topic}")
     public String topic;
+
+    @Value("${beginTime}")
+    public String beginTime;
+
+    @Value("${endTime}")
+    public String endTime;
 }
 

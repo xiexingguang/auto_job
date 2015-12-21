@@ -211,7 +211,8 @@ public class StringUtil {
 	 * @since JDK 1.7
 	 */
 	public static boolean isNullString(String input){
-		return (input==null||input=="");
+		return (input==null||input.trim().length()<=0);
+
 	}
 	
 	
@@ -293,7 +294,10 @@ public class StringUtil {
 	}
 	
       public static void main(String[] args) throws IOException {
-		/*   File file = new File("d:/wewe/xxg/ee.txt");
+          String  in = new String("");
+          System.out.println(StringUtil.isNullString(in));
+          System.out.println(""=="");
+        /*   File file = new File("d:/wewe/xxg/ee.txt");
 		 //  System.out.println(file.isDirectory());
 		   String s = file.getParent();
 		   System.out.println(s);

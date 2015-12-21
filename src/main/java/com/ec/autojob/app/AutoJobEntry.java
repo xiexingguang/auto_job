@@ -80,7 +80,8 @@ public class AutoJobEntry implements Job{
 	
 	//private 
 	
-/**
+/*
+*
 	 * 
 	 * process:自动任务job 入口<br/>
 	 * TODO(这里描述这个方法适用条件 – 可选).<br/>
@@ -88,7 +89,9 @@ public class AutoJobEntry implements Job{
 	 * @author xxg
 	 * @throws Exception 
 	 * @since JDK 1.7
-	 */
+*/
+
+
 
 	@SuppressWarnings("deprecation")
 	@Scheduled(cron = "0/5 * * * * *") 

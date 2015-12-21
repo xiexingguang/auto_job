@@ -42,18 +42,33 @@ public class PackageDataJob implements Job {
         LOG.info("同步套餐信息任务开始执行==================,执行时间" + new Date().toLocaleString());
         //  init data
         String packageIds = configProperties.PACKAGE_IDS;
-        List<String> packages = Arrays.asList(packageIds.split(","));
-        List<Long> longPackageIds = StringUtil.convertStringList2LongList(packages);
+        String beginTimePro = configProperties.beginTime;
+        String endTimePro = configProperties.endTime;
+        String beginTime = null;
+        String endTime = null;
         SimpleDateFormat spf = new SimpleDateFormat("yyy-MM-dd 00:00:00");
         SimpleDateFormat spf2 = new SimpleDateFormat("yyy-MM-dd 23:59:59");
-        String beginTime = spf.format(DataUtil.getNextDay(new Date()));
-        String endTime = spf2.format(DataUtil.getNextDay(new Date()));
+        System.out.println("============>"+beginTimePro);
+        //jude the data
+        if (StringUtil.isNullString(beginTimePro) || StringUtil.isNullString(endTimePro)) { // 如果配置文件木有，则使用默认时间间隔
+            beginTime = spf.format(DataUtil.getNextDay(new Date()));
+            endTime = spf2.format(DataUtil.getNextDay(new Date()));
+        } else {
+            beginTime = beginTimePro;
+            endTime = endTimePro;
+            if (beginTime.equals(endTime)) {
+                LOG.warn("时间间隔为同一天");
+            }
+        }
+        List<String> packages = Arrays.asList(packageIds.split(","));
+        List<Long> longPackageIds = StringUtil.convertStringList2LongList(packages);
 
-       LOG.info("扫描套餐的变更时间间隔为===》【" + beginTime + "---" + endTime + "】" + "扫描的套餐id为===》" + packageIds);
+        LOG.info("扫描套餐的变更时间间隔为===》【" + beginTime + "---" + endTime + "】" + "扫描的套餐id为===》" + packageIds);
         List<PackageBean> packageBeans = null;
         try {
             // call dubbo service
             packageBeans = packageCorpService.findPackageBeansByConditions(longPackageIds, beginTime, endTime);
+            LOG.info("after call dubbo service ,return result is====>"+ com.alibaba.fastjson.JSON.toJSONString(packageBeans));
         } catch (Exception e) {
              LOG.error("call dubbo service fail , the exception is",e);
             return;
