@@ -8,12 +8,11 @@
 */
 package com.ec.autojob.collectJob;
 
+import com.ec.autojob.collectJob.core.AbstractCollectMsgJob;
+import com.ec.autojob.collectJob.core.CollectMsgInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-
-import com.ec.autojob.collectJob.core.AbstractCollectMsgJob;
-import com.ec.autojob.collectJob.core.CollectMsgInterface;
 
 /**
  * ClassName:FileCollectMsgJob <br/>
@@ -27,7 +26,8 @@ import com.ec.autojob.collectJob.core.CollectMsgInterface;
  */
 @Component(value="fileCollectMsgJob")
 public class FileCollectMsgJob extends AbstractCollectMsgJob{
-    
+
+
 	@Autowired
 	@Qualifier("collectMsgFromFileLog2")
 	private CollectMsgInterface collectMsg;

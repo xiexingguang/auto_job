@@ -22,7 +22,10 @@ import java.util.*;
 public class AutoJobEntry implements Job{
 	
 	private static final Logger LOG = LogManager.getLogger("appLog");
-	@Autowired
+    private static final Map<String, AutoTaskBean> executingTask = new HashMap<>();
+
+
+    @Autowired
 	private AutoTaskDao autoTaskDao;
 	
 	@Autowired

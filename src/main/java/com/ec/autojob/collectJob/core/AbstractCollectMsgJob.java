@@ -1,12 +1,12 @@
 package com.ec.autojob.collectJob.core;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.springframework.stereotype.Component;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  * ClassName:CollectMsgJob <br/>
  * Function: 收集消息job类
@@ -29,7 +29,10 @@ public abstract class AbstractCollectMsgJob implements Job {
 	//private static final Logger  LOG_ERROR = LogManager.getLogger("errorLog");
   
 	protected abstract CollectMsgInterface  getCollectMsg();
+
     
+
+
     
 	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	@Override
