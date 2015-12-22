@@ -10,4 +10,6 @@
 	<task id="staticCustomJob" class="com.ec.autojob.staticJob.StaticMsgCosumerJob"></task>
 	
 	<task id="staticMsgWxJob" class="com.ec.autojob.staticJob.StaticMsgWxJob"></task>
+
+    <task id="apiPackageJob" class="com.ec.autojob.pushPackageDataJob.PackageDataJob"></task>
 </tasks>

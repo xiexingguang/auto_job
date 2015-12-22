@@ -39,6 +39,14 @@ public class PackageDataJob implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
+
+        try {
+            Thread.sleep(1000000000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
         LOG.info("同步套餐信息任务开始执行==================,执行时间" + new Date().toLocaleString());
         //  init data
         String packageIds = configProperties.PACKAGE_IDS;
@@ -48,7 +56,7 @@ public class PackageDataJob implements Job {
         String endTime = null;
         SimpleDateFormat spf = new SimpleDateFormat("yyy-MM-dd 00:00:00");
         SimpleDateFormat spf2 = new SimpleDateFormat("yyy-MM-dd 23:59:59");
-        System.out.println("============>"+beginTimePro);
+        System.out.println("============>" + beginTimePro);
         //jude the data
         if (StringUtil.isNullString(beginTimePro) || StringUtil.isNullString(endTimePro)) { // 如果配置文件木有，则使用默认时间间隔
             beginTime = spf.format(DataUtil.getNextDay(new Date()));
@@ -68,9 +76,9 @@ public class PackageDataJob implements Job {
         try {
             // call dubbo service
             packageBeans = packageCorpService.findPackageBeansByConditions(longPackageIds, beginTime, endTime);
-            LOG.info("after call dubbo service ,return result is====>"+ com.alibaba.fastjson.JSON.toJSONString(packageBeans));
+            LOG.info("after call dubbo service ,return result is====>" + com.alibaba.fastjson.JSON.toJSONString(packageBeans));
         } catch (Exception e) {
-             LOG.error("call dubbo service fail , the exception is",e);
+            LOG.error("call dubbo service fail , the exception is", e);
             return;
         }
         //放入nsq消费
@@ -80,7 +88,7 @@ public class PackageDataJob implements Job {
                 ECNsqProducer.nsqProducer.produce(configProperties.topic, pacakgJson.getBytes());
                 LOG.info("producer the message is=====>" + pacakgJson);
             } catch (Exception e) {
-                LOG.warn("produce message fail ,the message is " + pacakgJson+"===>",e);
+                LOG.warn("produce message fail ,the message is " + pacakgJson + "===>", e);
             }
         }
     }
